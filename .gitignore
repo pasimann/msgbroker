@@ -1,0 +1,13 @@
+# Java artifacts
+*.jar
+*.war
+*.ear
+*.class
+*target*
+
+# Eclipse shenanigans
+.classpath
+.project
+consumer/.settings/
+producer/.settings/
+

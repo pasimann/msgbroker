@@ -1,0 +1,29 @@
+
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+producer:
+  build: producer
+  ports:
+    - 8080:8080
+  links:
+    - rabbitmq
+  environment:
+    SPRING_RABBITMQ_HOST: "rabbitmq"
+    SPRING_RABBITMQ_PASSWORD: "guest"
+    SPRING_RABBIT_DLX_TTL: 30000
+    PORT: 8080
+
+consumer:
+  build: consumer
+  links:
+    - rabbitmq
+  environment:
+    SPRING_RABBITMQ_HOST: "rabbitmq"
+    SPRING_RABBITMQ_PASSWORD: "guest"
+    NO_OF_CONSUMERS: 2
+    MAX_CONSUMERS: 10
+    PORT: 8081
